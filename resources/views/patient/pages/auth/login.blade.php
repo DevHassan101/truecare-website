@@ -1,0 +1,57 @@
+@extends('patient.layouts.guest')
+@section('content')
+
+    <section class="w-full bg-theme-blue flex items-center justify-center min-h-screen md:py-[5vw] sm:py-[6vw] xs:py-[7vw]">
+        <div
+            class="md:w-[35vw] bg-white md:p-[3.5vw] sm:p-[4.5vw] xs:p-[5.5vw] md:rounded-[1vw] sm:rounded-[1.5vw] xs:rounded-[2vw]">
+            <h4 class="md:text-[1.8vw] sm:text-[2.8vw] xs:text-[4.3vw] font-semibold text-center">
+                Member Login
+            </h4>
+            <p class="md:text-[1.1vw] sm:text-[2.1vw] xs:text-[3.6vw] text-gray-600 text-center py-2">
+                Welcome back! Please enter your details.
+            </p>
+            @session('error')
+                <div class="py-2 px-4 rounded border border-red-500 bg-red-500/10 text-red-500">
+                    {{ session('error') }}
+                </div>
+            @endsession
+
+            <form action="{{ route('patient.signin') }}" method="POST" class="w-full flex flex-col gap-8 py-4">
+                @csrf
+                <div class="w-full md:text-[1.1vw] sm:text-[2.1vw] xs:text-[3.6vw] flex flex-col gap-2">
+                    <label for="email" class="text-gray-600">Email</label>
+                    <input type="email" name="email" id="email" value="{{ old('email') }}"
+                        class="md:py-[0.7vw] sm:py-[1.2vw] xs:py-[1.7vw] bg-gray-200 rounded-md border border-gray-300 outline-none px-3 w-full"
+                        placeholder="Enter your email" />
+                    @error('email')
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="w-full md:text-[1.1vw] sm:text-[2.1vw] xs:text-[3.6vw] flex flex-col gap-2">
+                    <label for="password" class="text-gray-600">password</label>
+                    <input type="text" name="password" id="password"
+                        class="md:py-[0.7vw] sm:py-[1.2vw] xs:py-[1.7vw] bg-gray-200 rounded-md border border-gray-300 outline-none px-3 w-full"
+                        placeholder="Enter your password" />
+                    @error('password')
+                        <span class="text-red-500">
+                            {{ $message }}
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="w-full py-3 flex items-center flex-col gap-2 justify-center">
+                    <button type="submit"
+                        class="cursor-pointer md:py-[0.7vw] sm:py-[1.2vw] xs:py-[1.7vw] md:text-[1.1vw] sm:text-[2.1vw] xs:text-[3.6vw] text-white bg-theme-blue rounded-md md:w-[75%] xs:w-full text-center">
+                        Login
+                    </button>
+                    <label for="remember" class="md:text-[1vw] sm:text-[2vw] xs:text-[3.5vw] text-gray-500">
+                        Don't you have an account?
+                        <a href="{{ route('patient.register') }}" class="text-theme-blue underline">Create one</a></label>
+                </div>
+            </form>
+        </div>
+    </section>
+@endsection
